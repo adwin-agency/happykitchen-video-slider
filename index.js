@@ -1,14 +1,19 @@
 $(document).ready(function () {
 
 	const slickElement = $('.video-reviews__container');
+
+	const prev = document.querySelector('.arrow-prev-js');
+	const next = document.querySelector('.arrow-next-js');
+	// Ширина при которой меняется отображение стрелок
+	const widthLimiter = 620;
 	// Slider counter
 	slickElement.on('init reInit afterChange', function (event, slick, currentSlide, nextSlide) {
 		const currentEl = $('.video-reviews__pagination_current');
 		const totalEl = $('.video-reviews__pagination_total');
 		const initialValue = slick.options.slidesToShow;
+
 		let totalSlides = Math.ceil(slick.slideCount / initialValue);
 		let current = 0;
-
 		// Отображаем кол-во блоков (1 блок(4слайда) из 2) когда slidesToShow = slidesToScroll
 		// Или
 		// Выводим число элементов слайдера (4 слайда из 8)
@@ -23,16 +28,44 @@ $(document).ready(function () {
 			totalEl.text('/' + totalSlides)
 		}
 	});
-	// Control of mobile arrows
+
+	(function () {
+		var throttle = function (type, name, obj) {
+			obj = obj || window;
+			var running = false;
+			var func = function () {
+				if (running) {
+					return;
+				}
+				running = true;
+				requestAnimationFrame(function () {
+					obj.dispatchEvent(new CustomEvent(name));
+					running = false;
+				});
+			};
+			obj.addEventListener(type, func);
+		};
+		throttle("resize", "optimizedResize");
+	})();
+	// handle event
+	window.addEventListener("optimizedResize", function (e) {
+		if (e.currentTarget.innerWidth < widthLimiter) {
+			prev.style.display = 'none'
+		} else {
+			next.style.display = 'block'
+			prev.style.display = 'block'
+		}
+	});
+
 	slickElement.on('init reInit edge', function (event, slick, direction) {
-		if (slick.listWidth < 620) {
-			slick.$prevArrow[0].style.display = 'none'
-			if (direction === "left") {
-				slick.$nextArrow[0].style.display = 'none'
-				slick.$prevArrow[0].style.display = 'block'
+		if (slick.listWidth < widthLimiter) {
+			if (direction === 'left') {
+				next.style.display = 'none'
+				prev.style.display = 'block'
 			} else {
-				slick.$nextArrow[0].style.display = 'block'
-				slick.$prevArrow[0].style.display = 'none'
+				next.style.display = 'block'
+				prev.style.display = 'none'
+
 			}
 		}
 	});
@@ -53,7 +86,7 @@ $(document).ready(function () {
 				}
 			},
 			{
-				breakpoint: 600,
+				breakpoint: 620,
 				settings: {
 					slidesToShow: 2,
 					slidesToScroll: 2,
@@ -74,18 +107,19 @@ $(document).ready(function () {
 	const videoBlock = document.querySelectorAll('.video-reviews__block');
 
 	videoBlock.forEach(el => {
-		const video = el.querySelector('.video-reviews__video')
-		const button = el.querySelector('.video-reviews__button-play')
+		const video = el.querySelector('.video-reviews__video');
+		const button = el.querySelector('.video-reviews__button-play');
+		const playArea = el.querySelector('.video-reviews__video');
 		const play = el.querySelector('.video-reviews__play');
 		const stop = el.querySelector('.video-reviews__stop');
 		// константы для ProgressBar
-		const progress = el.querySelector('.video-reviews__progress')
-		const progressBar = el.querySelector('.video-reviews__progress-bar')
+		const progress = el.querySelector('.video-reviews__progress');
+		const progressBar = el.querySelector('.video-reviews__progress-bar');
 
 		if (video && button) {
 			play.classList.add('active')
 
-			button.addEventListener('click', function () {
+			playArea.addEventListener('click', function () {
 				if (video.paused) {
 					video.play();
 					button.classList.add('active')
