@@ -23,7 +23,19 @@ $(document).ready(function () {
 			totalEl.text('/' + totalSlides)
 		}
 	});
-
+	// Control of mobile arrows
+	slickElement.on('init reInit edge', function (event, slick, direction) {
+		if (slick.listWidth < 620) {
+			slick.$prevArrow[0].style.display = 'none'
+			if (direction === "left") {
+				slick.$nextArrow[0].style.display = 'none'
+				slick.$prevArrow[0].style.display = 'block'
+			} else {
+				slick.$nextArrow[0].style.display = 'block'
+				slick.$prevArrow[0].style.display = 'none'
+			}
+		}
+	});
 
 	$('.video-reviews__container').slick({
 		infinite: false,
@@ -41,9 +53,8 @@ $(document).ready(function () {
 				}
 			},
 			{
-				breakpoint: 626,
+				breakpoint: 600,
 				settings: {
-					infinite: true,
 					slidesToShow: 2,
 					slidesToScroll: 2,
 				}
@@ -51,7 +62,6 @@ $(document).ready(function () {
 			{
 				breakpoint: 480,
 				settings: {
-					infinite: true,
 					speed: 500,
 					slidesToShow: 1.2,
 					slidesToScroll: 1

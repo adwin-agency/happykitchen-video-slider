@@ -189,7 +189,7 @@ img {
 	.video-reviews__pagination {
 		display: none;
 	}
-    .video-reviews__button-previous {
+    /* .video-reviews__button-previous {
       display: none !important;  
-    }
+    } */
 }
