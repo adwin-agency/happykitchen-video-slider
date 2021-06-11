@@ -73,6 +73,7 @@ $(document).ready(function () {
 		slidesToShow: 4,
 		slidesToScroll: 4,
 		// draggable: false,
+		adaptiveHeight: true,
 		speed: 800,
 		prevArrow: $('.video-reviews__button-previous'),
 		nextArrow: $('.video-reviews__button-next'),
@@ -87,6 +88,7 @@ $(document).ready(function () {
 				breakpoint: 627,
 				settings: {
 					infinite: true,
+					adaptiveHeight: false,
 					slidesToShow: 2,
 					slidesToScroll: 2,
 				}
@@ -95,6 +97,7 @@ $(document).ready(function () {
 				breakpoint: 480,
 				settings: {
 					infinite: true,
+					adaptiveHeight: false,
 					variableWidth: true,
 					slidesToShow: 1,
 					slidesToScroll: 1
