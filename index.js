@@ -56,7 +56,7 @@ $(document).ready(function () {
 		if (e.currentTarget.innerWidth < widthLimiter) {
 			prev.classList.add('disabled-button')
 		} else {
-			next.classList.add('disabled-button')
+			next.classList.remove('disabled-button')
 			prev.classList.remove('disabled-button')
 		}
 	});
@@ -90,8 +90,9 @@ $(document).ready(function () {
 				}
 			},
 			{
-				breakpoint: 620,
+				breakpoint: 627,
 				settings: {
+					infinite: true,
 					slidesToShow: 2,
 					slidesToScroll: 2,
 				}
@@ -99,8 +100,32 @@ $(document).ready(function () {
 			{
 				breakpoint: 480,
 				settings: {
-					speed: 500,
-					slidesToShow: 1.2,
+					infinite: true,
+					slidesToShow: 1.1,
+					slidesToScroll: 1
+				}
+			},
+			{
+				breakpoint: 400,
+				settings: {
+					infinite: true,
+					slidesToShow: 1.07,
+					slidesToScroll: 1
+				}
+			},
+			{
+				breakpoint: 350,
+				settings: {
+					infinite: true,
+					slidesToShow: 1.05,
+					slidesToScroll: 1
+				}
+			},
+			{
+				breakpoint: 330,
+				settings: {
+					infinite: true,
+					slidesToShow: 1.02,
 					slidesToScroll: 1
 				}
 			}
