@@ -1,9 +1,4 @@
 $(document).ready(function () {
-	// Правки
-	// Обводка увеличивается
-	// Рамка появляется 
-	// Воспроизводится только 1 видео
-
 	const slickElement = $('.video-reviews__container');
 
 	const prev = document.querySelector('.arrow-prev-js');
@@ -134,7 +129,7 @@ $(document).ready(function () {
 				if (video.paused) {
 					video.play()
 					playedControll(selectedVideo)
-				} else  {
+				} else {
 					video.pause()
 				}
 			}, false);
@@ -143,7 +138,7 @@ $(document).ready(function () {
 		function playedControll(selectedVideo) {
 			const allVideos = document.querySelectorAll('.video-reviews__video')
 			allVideos.forEach(videoItem => {
-				if(videoItem !== selectedVideo){
+				if (videoItem !== selectedVideo) {
 					videoItem.pause();
 				}
 			});
@@ -174,7 +169,7 @@ $(document).ready(function () {
 			classSettings()
 		}, false);
 		video.addEventListener('ended', () => {
-			classSettings() 
+			classSettings()
 		}, false);
 	});
 });
