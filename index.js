@@ -54,22 +54,21 @@ $(document).ready(function () {
 	// handle event
 	window.addEventListener("optimizedResize", function (e) {
 		if (e.currentTarget.innerWidth < widthLimiter) {
-			prev.style.display = 'none'
+			prev.classList.add('disabled-button')
 		} else {
-			next.style.display = 'block'
-			prev.style.display = 'block'
+			next.classList.add('disabled-button')
+			prev.classList.remove('disabled-button')
 		}
 	});
 
 	slickElement.on('init reInit edge', function (event, slick, direction) {
 		if (slick.listWidth < widthLimiter) {
 			if (direction === 'left') {
-				next.style.display = 'none'
-				prev.style.display = 'block'
+				next.classList.add('disabled-button')
+				prev.classList.remove('disabled-button')
 			} else {
-				next.style.display = 'block'
-				prev.style.display = 'none'
-
+				next.classList.remove('disabled-button')
+				prev.classList.add('disabled-button')
 			}
 		}
 	});

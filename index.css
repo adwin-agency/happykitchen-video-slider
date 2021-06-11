@@ -32,19 +32,28 @@ img {
 .video-reviews__button-previous {
 	background-color: transparent;
 	border: none;
-	fill: #0498CE;
+	fill: #000;
 	cursor: pointer;
 	padding: 5px;
+	pointer-events: all;
 	opacity: 1;
+	display: block;
+	visibility: visible;
+	transition: fill .3s;
+}
+
+.video-reviews__button-next:hover,
+.video-reviews__button-previous:hover {
+	fill: #0498CE;
+}
+.disabled-button {
+	opacity: 0;
+	pointer-events: none;
+	display: none;
+	visibility: hidden;
 }
 
 
-
-
-/* .video-reviews__button-next:hover,
-.video-reviews__button-previous:hover {
-
-} */
 
 .video-reviews__pagination {
 	font-size: 0;
@@ -184,12 +193,12 @@ img {
 	opacity: 1;
 }
 
-@media screen and (min-width: 620px) {
+/* @media screen and (min-width: 620px) {
 	.video-reviews__button-next.slick-disabled,
 	.video-reviews__button-previous.slick-disabled {
 		fill: #000;
 	}
-}
+} */
 
 @media screen and (max-width: 620px) {
 	.video-reviews__title {
