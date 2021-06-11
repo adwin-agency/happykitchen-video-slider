@@ -131,7 +131,7 @@ img {
 .video-reviews__video {
 	height: 100%;
 	/* max-height: 460px; */
-	max-width: 280px;
+	max-width: 300px;
 	width: 100%;
 	background-size: cover;
 	object-fit: cover;
