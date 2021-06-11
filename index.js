@@ -1,4 +1,8 @@
 $(document).ready(function () {
+	// Правки
+	// Обводка увеличивается
+	// Рамка появляется 
+	// Воспроизводится только 1 видео
 
 	const slickElement = $('.video-reviews__container');
 
@@ -75,6 +79,7 @@ $(document).ready(function () {
 		slidesToShow: 4,
 		slidesToScroll: 4,
 		// draggable: false,
+		adaptiveHeight: true,
 		speed: 800,
 		prevArrow: $('.video-reviews__button-previous'),
 		nextArrow: $('.video-reviews__button-next'),
@@ -104,35 +109,45 @@ $(document).ready(function () {
 	});
 	// Video play
 
-	const videoBlock = document.querySelectorAll('.video-reviews__block');
+	const videoBlock = document.querySelectorAll('.video-reviews__item');
 
 	videoBlock.forEach(el => {
 		const video = el.querySelector('.video-reviews__video');
 		const button = el.querySelector('.video-reviews__button-play');
-		const playArea = el.querySelector('.video-reviews__video');
 		const play = el.querySelector('.video-reviews__play');
 		const stop = el.querySelector('.video-reviews__stop');
 		// константы для ProgressBar
 		const progress = el.querySelector('.video-reviews__progress');
 		const progressBar = el.querySelector('.video-reviews__progress-bar');
+		const sliderItem = el.querySelector('.video-reviews__block');
 
+		function classSettings() {
+			button.classList.toggle('active')
+			play.classList.toggle('active')
+			stop.classList.toggle('active')
+			sliderItem.classList.toggle('active')
+		}
 		if (video && button) {
 			play.classList.add('active')
-
-			playArea.addEventListener('click', function () {
+			video.addEventListener('click', function () {
+				let selectedVideo = video
 				if (video.paused) {
-					video.play();
-					button.classList.add('active')
-					play.classList.remove('active')
-					stop.classList.add('active')
-				} else {
-					video.pause();
-					play.classList.add('active')
-					stop.classList.remove('active')
+					video.play()
+					playedControll(selectedVideo)
+				} else  {
+					video.pause()
 				}
 			}, false);
 		}
 
+		function playedControll(selectedVideo) {
+			const allVideos = document.querySelectorAll('.video-reviews__video')
+			allVideos.forEach(videoItem => {
+				if(videoItem !== selectedVideo){
+					videoItem.pause();
+				}
+			});
+		}
 		// Start ProgressBar
 		if (progress) {
 			// Обновляем полузнок
@@ -149,6 +164,10 @@ $(document).ready(function () {
 			// Слушатели
 			video.addEventListener('play', () => {
 				progressBar.classList.add('active')
+				classSettings()
+			}, false);
+			video.addEventListener('pause', () => {
+				classSettings()
 			}, false);
 			video.addEventListener('ended', () => {
 				progressBar.classList.remove('active')
