@@ -162,22 +162,19 @@ $(document).ready(function () {
 				event.target.value = Math.floor(percent / 100);
 			}
 			// Слушатели
-			video.addEventListener('play', () => {
-				progressBar.classList.add('active')
-				classSettings()
-			}, false);
-			video.addEventListener('pause', () => {
-				classSettings()
-			}, false);
-			video.addEventListener('ended', () => {
-				progressBar.classList.remove('active')
-				play.classList.add('active')
-				stop.classList.remove('active')
-				button.classList.remove('active')
-			}, false);
 			video.addEventListener('timeupdate', updateProgressBar, false);
 			progressBar.addEventListener("click", seek)
 		}
 		// End ProgressBar
+		video.addEventListener('play', () => {
+			progressBar.classList.add('active')
+			classSettings()
+		}, false);
+		video.addEventListener('pause', () => {
+			classSettings()
+		}, false);
+		video.addEventListener('ended', () => {
+			classSettings() 
+		}, false);
 	});
 });
