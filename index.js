@@ -78,7 +78,6 @@ $(document).ready(function () {
 		slidesToShow: 4,
 		slidesToScroll: 4,
 		// draggable: false,
-		adaptiveHeight: true,
 		speed: 800,
 		prevArrow: $('.video-reviews__button-previous'),
 		nextArrow: $('.video-reviews__button-next'),
@@ -101,34 +100,11 @@ $(document).ready(function () {
 				breakpoint: 480,
 				settings: {
 					infinite: true,
-					slidesToShow: 1.1,
+					variableWidth: true,
+					slidesToShow: 1,
 					slidesToScroll: 1
 				}
 			},
-			{
-				breakpoint: 400,
-				settings: {
-					infinite: true,
-					slidesToShow: 1.07,
-					slidesToScroll: 1
-				}
-			},
-			{
-				breakpoint: 350,
-				settings: {
-					infinite: true,
-					slidesToShow: 1.05,
-					slidesToScroll: 1
-				}
-			},
-			{
-				breakpoint: 330,
-				settings: {
-					infinite: true,
-					slidesToShow: 1.02,
-					slidesToScroll: 1
-				}
-			}
 		]
 	});
 	// Video play
