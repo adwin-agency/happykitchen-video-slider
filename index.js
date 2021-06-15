@@ -27,7 +27,7 @@ $(document).ready(function () {
 			totalEl.text('/' + totalSlides)
 		}
 	});
-
+// Отрисовка стрелок
 	(function () {
 		var throttle = function (type, name, obj) {
 			obj = obj || window;
@@ -119,30 +119,61 @@ $(document).ready(function () {
 		const progressBar = el.querySelector('.video-reviews__progress-bar');
 		const sliderItem = el.querySelector('.video-reviews__block');
 
+		sliderItem.setAttribute('data-id', '_' + Math.random().toString(36).substr(2, 9));
+		
 		function classSettings() {
-			button.classList.toggle('active')
-			play.classList.toggle('active')
-			stop.classList.toggle('active')
-			sliderItem.classList.toggle('active')
+			if (video.paused) {
+				video.play()
+				play.classList.add('active')
+				stop.classList.remove('active')
+				button.classList.add('active')
+			} else {
+				video.pause()
+				play.classList.remove('active')
+				stop.classList.add('active')
+				button.classList.remove('active')
+			}
 		}
-		if (video && button) {
+		
+		if(video.played) {
+			stop.classList.add('active')
+		} else {
 			play.classList.add('active')
+		}
+		if (video && stop) {
+			video.muted= true;
+			button.classList.add('active')
 			video.addEventListener('click', function () {
-				let selectedVideo = video
-				if (video.paused) {
-					video.play()
-					playedControll(selectedVideo)
+				if (video.classList.contains('played')) {
+					classSettings()
 				} else {
-					video.pause()
+					video.currentTime = 0
 				}
+				// Класс стоит после проверки чтобы при первом клике на сбрасывать таймер на 0
+				video.classList.add('played')
+				playedControll(sliderItem)
 			}, false);
 		}
+		// Переделать колхоз с повтором классов
+		function playedControll(selected) {
+			const allItem = document.querySelectorAll('.video-reviews__block');
+			allItem.forEach(sliderEl => {
+				const sliderVideo = sliderEl.querySelector('.video-reviews__video');
+				const sliderStop = sliderEl.querySelector('.video-reviews__stop');
+				const sliderPlay = sliderEl.querySelector('.video-reviews__play');
+				const sliderButton = sliderEl.querySelector('.video-reviews__button-play');
+				if (sliderEl.getAttribute('data-id') === selected.getAttribute('data-id')) {
+					sliderEl.classList.add('active')
+					sliderVideo.muted= false;	
 
-		function playedControll(selectedVideo) {
-			const allVideos = document.querySelectorAll('.video-reviews__video')
-			allVideos.forEach(videoItem => {
-				if (videoItem !== selectedVideo) {
-					videoItem.pause();
+				} else  {
+					sliderEl.classList.remove('active')
+					sliderVideo.play()
+					sliderVideo.muted= true;
+					sliderVideo.classList.remove('played')
+
+					// sliderStop.classList.add('active')
+					// sliderPlay.classList.remove('active')
 				}
 			});
 		}
@@ -164,15 +195,14 @@ $(document).ready(function () {
 			progressBar.addEventListener("click", seek)
 		}
 		// End ProgressBar
-		video.addEventListener('play', () => {
-			progressBar.classList.add('active')
-			classSettings()
-		}, false);
-		video.addEventListener('pause', () => {
-			classSettings()
-		}, false);
-		video.addEventListener('ended', () => {
-			classSettings()
-		}, false);
+		// video.addEventListener('play', () => {
+		// 	// progressBar.classList.add('active')
+		// }, false);
+		// video.addEventListener('pause', () => {
+
+		// }, false);
+		// video.addEventListener('ended', () => {
+		// 	classSettings()
+		// }, false);
 	});
 });
