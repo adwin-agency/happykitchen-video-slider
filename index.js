@@ -124,14 +124,16 @@ $(document).ready(function () {
 		function classSettings() {
 			if (video.paused) {
 				video.play()
-				play.classList.add('active')
-				stop.classList.remove('active')
-				button.classList.add('active')
-			} else {
-				video.pause()
 				play.classList.remove('active')
 				stop.classList.add('active')
+				button.classList.add('active')
+				progressBar.classList.add('active')
+			} else {
+				video.pause()
+				play.classList.add('active')
+				stop.classList.remove('active')
 				button.classList.remove('active')
+				// progressBar.classList.remove('active')
 			}
 		}
 		
@@ -161,19 +163,19 @@ $(document).ready(function () {
 				const sliderVideo = sliderEl.querySelector('.video-reviews__video');
 				const sliderStop = sliderEl.querySelector('.video-reviews__stop');
 				const sliderPlay = sliderEl.querySelector('.video-reviews__play');
-				const sliderButton = sliderEl.querySelector('.video-reviews__button-play');
+				const sliderProgressBar = sliderEl.querySelector('.video-reviews__progress-bar');
 				if (sliderEl.getAttribute('data-id') === selected.getAttribute('data-id')) {
 					sliderEl.classList.add('active')
-					sliderVideo.muted= false;	
-
+					sliderProgressBar.classList.add('active')
+					sliderVideo.muted= false;
 				} else  {
 					sliderEl.classList.remove('active')
 					sliderVideo.play()
 					sliderVideo.muted= true;
 					sliderVideo.classList.remove('played')
-
-					// sliderStop.classList.add('active')
-					// sliderPlay.classList.remove('active')
+					sliderStop.classList.add('active')
+					sliderProgressBar.classList.remove('active')
+					sliderPlay.classList.remove('active')
 				}
 			});
 		}
@@ -195,14 +197,5 @@ $(document).ready(function () {
 			progressBar.addEventListener("click", seek)
 		}
 		// End ProgressBar
-		// video.addEventListener('play', () => {
-		// 	// progressBar.classList.add('active')
-		// }, false);
-		// video.addEventListener('pause', () => {
-
-		// }, false);
-		// video.addEventListener('ended', () => {
-		// 	classSettings()
-		// }, false);
 	});
 });
