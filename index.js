@@ -27,7 +27,7 @@ $(document).ready(function () {
 			totalEl.text('/' + totalSlides)
 		}
 	});
-// Отрисовка стрелок
+	// Отрисовка стрелок
 	(function () {
 		var throttle = function (type, name, obj) {
 			obj = obj || window;
@@ -72,7 +72,6 @@ $(document).ready(function () {
 		infinite: false,
 		slidesToShow: 4,
 		slidesToScroll: 4,
-		// draggable: false,
 		adaptiveHeight: true,
 		speed: 800,
 		prevArrow: $('.video-reviews__button-previous'),
@@ -120,7 +119,7 @@ $(document).ready(function () {
 		const sliderItem = el.querySelector('.video-reviews__block');
 
 		sliderItem.setAttribute('data-id', '_' + Math.random().toString(36).substr(2, 9));
-		
+
 		function classSettings() {
 			if (video.paused) {
 				video.play()
@@ -133,51 +132,29 @@ $(document).ready(function () {
 				play.classList.add('active')
 				stop.classList.remove('active')
 				button.classList.remove('active')
-				// progressBar.classList.remove('active')
 			}
 		}
-		
-		if(video.played) {
-			stop.classList.add('active')
-		} else {
+
+		if (video.played) {
 			play.classList.add('active')
+		} else {
+			stop.classList.add('active')
 		}
 		if (video && stop) {
-			video.muted= true;
+			video.muted = true;
 			button.classList.add('active')
 			video.addEventListener('click', function () {
 				if (video.classList.contains('played')) {
 					classSettings()
 				} else {
 					video.currentTime = 0
+					play.classList.remove('active')
+					stop.classList.add('active')
 				}
 				// Класс стоит после проверки чтобы при первом клике на сбрасывать таймер на 0
 				video.classList.add('played')
 				playedControll(sliderItem)
 			}, false);
-		}
-		// Переделать колхоз с повтором классов
-		function playedControll(selected) {
-			const allItem = document.querySelectorAll('.video-reviews__block');
-			allItem.forEach(sliderEl => {
-				const sliderVideo = sliderEl.querySelector('.video-reviews__video');
-				const sliderStop = sliderEl.querySelector('.video-reviews__stop');
-				const sliderPlay = sliderEl.querySelector('.video-reviews__play');
-				const sliderProgressBar = sliderEl.querySelector('.video-reviews__progress-bar');
-				if (sliderEl.getAttribute('data-id') === selected.getAttribute('data-id')) {
-					sliderEl.classList.add('active')
-					sliderProgressBar.classList.add('active')
-					sliderVideo.muted= false;
-				} else  {
-					sliderEl.classList.remove('active')
-					sliderVideo.play()
-					sliderVideo.muted= true;
-					sliderVideo.classList.remove('played')
-					sliderStop.classList.add('active')
-					sliderProgressBar.classList.remove('active')
-					sliderPlay.classList.remove('active')
-				}
-			});
 		}
 		// Start ProgressBar
 		if (progress) {
@@ -198,4 +175,28 @@ $(document).ready(function () {
 		}
 		// End ProgressBar
 	});
+	// ((___Переделать колхоз с повтором классов__))
+	function playedControll(selected) {
+		const allItem = document.querySelectorAll('.video-reviews__block');
+		allItem.forEach(sliderEl => {
+			const sliderVideo = sliderEl.querySelector('.video-reviews__video');
+			const sliderStop = sliderEl.querySelector('.video-reviews__stop');
+			const sliderPlay = sliderEl.querySelector('.video-reviews__play');
+			const sliderProgressBar = sliderEl.querySelector('.video-reviews__progress-bar');
+			if (sliderEl.getAttribute('data-id') === selected.getAttribute('data-id')) {
+				sliderEl.classList.add('active')
+				sliderProgressBar.classList.add('active')
+				sliderVideo.muted = false;
+			} else {
+				sliderEl.classList.remove('active')
+				sliderVideo.play()
+				sliderVideo.muted = true;
+				sliderVideo.classList.remove('played')
+				sliderStop.classList.remove('active')
+				sliderPlay.classList.add('active')
+				sliderProgressBar.classList.remove('active')
+
+			}
+		});
+	}
 });
